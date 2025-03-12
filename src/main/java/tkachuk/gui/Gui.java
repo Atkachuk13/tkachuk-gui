@@ -96,7 +96,7 @@ public class Gui extends JFrame
                             break;
                         }
                     }
-                    if (!isFilled) break;
+                    if (!isFilled) {break;}
                 }
 
                 if (!isFilled)
