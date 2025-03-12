@@ -1,4 +1,5 @@
 package tkachuk.gui;
+
 public class SudokuError
 {
 

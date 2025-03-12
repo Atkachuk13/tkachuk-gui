@@ -29,15 +29,15 @@ public class Gui extends JFrame
         panel.setLayout(new GridLayout(10, 9, 5, 5));
 
         // first row empty
-        for (int col = 0; col < 9; col++)
+        for(int col = 0; col < 9; col++)
         {
             panel.add(new JLabel(""));
         }
 
         // text fieledes
-        for (int row = 0; row < 9; row++)
+        for(int row = 0; row < 9; row++)
         {
-            for (int col = 0; col < 9; col++)
+            for(int col = 0; col < 9; col++)
             {
                 text[row][col] = new JTextField(2);
                 panel.add(text[row][col]);
@@ -57,7 +57,7 @@ public class Gui extends JFrame
                 {8, 4, 8}, {8, 7, 7}, {8, 8, 9}
         };
 
-        for (int[] val : initVals)
+        for(int[] val : initVals)
         {
             int row = val[0];
             int col = val[1];
@@ -110,11 +110,14 @@ public class Gui extends JFrame
                 Sudoku board = new Sudoku(nums);
                 List<SudokuError> errors = board.getErrors();
 
-                if (errors.isEmpty()) {
+                if(errors.isEmpty())
+                {
                     JOptionPane.showMessageDialog(frame, "You got it!",
                             "Success", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    for (SudokuError error : errors) {
+                } else
+                {
+                    for(SudokuError error : errors)
+                    {
                         text[error.getRow()][error.getCol()].setBackground(new Color(255, 204, 204));
                     }
                 }
