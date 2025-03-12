@@ -11,7 +11,7 @@ public class SudokuErrorTest
     public void toStringTest()
     {
 
-        SudokuError error = new SudokuError(3,4,6);
+        SudokuError error = new SudokuError(3, 4, 6);
 
         String expected = "row:3col:4num:6";
 
