@@ -29,14 +29,16 @@ class SudokuTest
 
         Sudoku board = new Sudoku(nums);
 
-        List<String> expectedList = Arrays.asList(
-                "Horiz.: column 3 row 5 duplicate 2",
-                "Vertic.: column 8 row 4 duplicate 8",
-                "Vertic.: column 7 row 5 duplicate 2",
-                "Box: 5 duplicate 2"
+        List<SudokuError> expectedList = Arrays.asList(
+                new SudokuError(5,3,2),
+                new SudokuError(4,8,8),
+                new SudokuError(5,7,2),
+                new SudokuError(1,2,2)
         );
 
-        assertEquals(expectedList, board.getErrors());
+
+
+        assertEquals(expectedList.toString(), board.getErrors().toString());
 
     }
 

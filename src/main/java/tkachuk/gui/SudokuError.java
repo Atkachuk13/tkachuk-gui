@@ -29,5 +29,12 @@ public class SudokuError
         return num;
     }
 
+    @Override
+    public String toString()
+    {
+
+        return "row:" + row + "col:" + col + "num:" + num;
+    }
+
 
 }

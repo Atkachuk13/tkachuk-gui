@@ -83,7 +83,7 @@ public class Sudoku
             }
 
         }
-
+        System.out.println(errors.toString());
         return errors;
     }
 
