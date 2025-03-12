@@ -29,13 +29,23 @@ class SudokuTest
 
         Sudoku board = new Sudoku(nums);
 
-        List<SudokuError> expectedList = Arrays.asList(new SudokuError(5,3,2),
+        List<SudokuError> expectedList = Arrays.asList(
+                new SudokuError(5,3,2),
                 new SudokuError(4,8,8),
                 new SudokuError(5,7,2),
                 new SudokuError(1,2,2));
 
+        for(int ix = 0; ix < expectedList.size(); ix++)
+        {
+            SudokuError expected = expectedList.get(ix);
+            SudokuError actual = board.getErrors().get(ix);
 
-        assertEquals(expectedList.toString(), board.getErrors().toString());
+            assertEquals(expected.getRow(), actual.getRow(), "Mismatch at row: " + ix);
+            assertEquals(expected.getCol(), actual.getCol(), "Mismatch at column: " + ix);
+            assertEquals(expected.getNum(), actual.getNum(), "Mismatch in duplicate: " + ix);
+
+        }
+
 
     }
 
@@ -59,7 +69,7 @@ class SudokuTest
 
         List<String> expectedList = Arrays.asList();
 
-        assertEquals(expectedList, board.getErrors());
+        assertTrue(board.getErrors().isEmpty());
 
     }
 
