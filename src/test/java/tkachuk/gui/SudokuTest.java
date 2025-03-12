@@ -6,7 +6,6 @@ import tkachuk.gui.Sudoku;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +35,7 @@ class SudokuTest
                 new SudokuError(5, 7, 2),
                 new SudokuError(1, 2, 2));
 
-        List<SudokuError> actualList = new ArrayList<>(board.getErrors());
+        List<SudokuError> actualList = board.getErrors();
 
         assertEquals(expectedList, actualList);
 
