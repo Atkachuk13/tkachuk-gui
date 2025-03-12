@@ -118,7 +118,7 @@ public class Gui extends JFrame
                 {
                     for (SudokuError error : errors)
                     {
-                        text[error.getRow()][error.getCol()].setBackground(new Color(255, 204, 204));
+                        text[error.row()][error.col()].setBackground(new Color(255, 204, 204));
                     }
                 }
             }
