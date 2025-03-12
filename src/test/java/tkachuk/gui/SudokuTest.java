@@ -29,8 +29,10 @@ class SudokuTest
 
         Sudoku board = new Sudoku(nums);
 
-        List<SudokuError> expectedList = Arrays.asList(
-                new SudokuError(5,3,2),new SudokuError(4,8,8),new SudokuError(5,7,2),new SudokuError(1,2,2));
+        List<SudokuError> expectedList = Arrays.asList(new SudokuError(5,3,2),
+                new SudokuError(4,8,8),
+                new SudokuError(5,7,2),
+                new SudokuError(1,2,2));
 
 
         assertEquals(expectedList.toString(), board.getErrors().toString());
