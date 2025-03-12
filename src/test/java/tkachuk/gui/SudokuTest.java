@@ -35,7 +35,7 @@ class SudokuTest
                 new SudokuError(5, 7, 2),
                 new SudokuError(1, 2, 2));
 
-        for(int ix = 0; ix < expectedList.size(); ix++)
+        for (int ix = 0; ix < expectedList.size(); ix++)
         {
             SudokuError expected = expectedList.get(ix);
             SudokuError actual = board.getErrors().get(ix);
