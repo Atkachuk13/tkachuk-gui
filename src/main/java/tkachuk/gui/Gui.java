@@ -25,22 +25,34 @@ public class Gui extends JFrame
 
 
         // panel
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(10, 9, 5, 5));
+        JPanel panel = new JPanel(new GridLayout(3, 3, 3, 3));
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
-        // first row empty
-        for (int col = 0; col < 9; col++)
+        JPanel[][] subPanel = new JPanel[3][3];
+
+        //sub-panel
+        for (int i = 0; i < 3; i++)
         {
-            panel.add(new JLabel(""));
+            for (int j = 0; j < 3; j++)
+            {
+                subPanel[i][j] = new JPanel(new GridLayout(3, 3));
+                subPanel[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                panel.add(subPanel[i][j]);
+            }
         }
 
-        // text fieledes
-        for (int row = 0; row < 9; row++)
+        // text fields in sub-panel
+        for (int i = 0; i < 9; i++)
         {
-            for (int col = 0; col < 9; col++)
+            for (int j = 0; j < 9; j++)
             {
-                text[row][col] = new JTextField(2);
-                panel.add(text[row][col]);
+                text[i][j] = new JTextField(2);
+                text[i][j].setHorizontalAlignment(JTextField.CENTER);
+                text[i][j].setFont(new Font("Arial", Font.BOLD, 18));
+
+                int boxRow = i / 3;
+                int boxCol = j / 3;
+                subPanel[boxRow][boxCol].add(text[i][j]);
             }
         }
 
@@ -96,7 +108,10 @@ public class Gui extends JFrame
                             break;
                         }
                     }
-                    if (!isFilled) { break; }
+                    if (!isFilled)
+                    {
+                        break;
+                    }
                 }
 
                 if (!isFilled)
