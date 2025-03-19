@@ -4,15 +4,13 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Gui extends JFrame
 {
     private JTextField[][] text = new JTextField[9][9];
+    int[][] arr = new int[9][9];
+    Sudoku sudoku = new Sudoku(arr);
 
     public Gui()
     {
@@ -50,6 +48,28 @@ public class Gui extends JFrame
                 text[i][j].setHorizontalAlignment(JTextField.CENTER);
                 text[i][j].setFont(new Font("Arial", Font.BOLD, 18));
 
+                // Document Listener
+                text[i][j].getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent e)
+                    {
+                        checkCompletion();
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e)
+                    {
+                        checkCompletion();
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e)
+                    {
+                        checkCompletion();
+                    }
+                });
+
                 int boxRow = i / 3;
                 int boxCol = j / 3;
                 subPanel[boxRow][boxCol].add(text[i][j]);
@@ -79,71 +99,69 @@ public class Gui extends JFrame
             text[row][col].setEditable(false);
         }
 
-        JButton check = new JButton("Check Board");
-        check.addActionListener(new ActionListener()
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
+
+
+    }
+
+    public JTextField[][] getText()
+    {
+        return text;
+    }
+
+    public void setText(JTextField[][] text)
+    {
+        this.text = text;
+    }
+
+    public void checkCompletion()
+    {
+        boolean complete = true;
+
+        for (int i = 0; i < 9; i++)
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            for (int j = 0; j < 9; j++)
             {
-
-                int[][] nums = new int[9][9];
-                boolean isFilled = true;
-
-                for (int row = 0; row < 9; row++)
+                String field = text[i][j].getText().trim();
+                if (field.isEmpty())
                 {
-                    for (int col = 0; col < 9; col++)
-                    {
-                        String value = text[row][col].getText().trim();
-                        if (value.isEmpty())
-                        {
-                            isFilled = false;
-                            break;
-                        }
-                        try
-                        {
-                            nums[row][col] = Integer.parseInt(value);
-                        } catch (NumberFormatException ex)
-                        {
-                            isFilled = false;
-                            break;
-                        }
-                    }
-                    if (!isFilled)
-                    {
-                        break;
-                    }
-                }
-
-                if (!isFilled)
-                {
-                    JOptionPane.showMessageDialog(frame, "Not all fields are filled",
-                            "Incomplete Board", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                // check for errors
-                Sudoku board = new Sudoku(nums);
-                List<SudokuError> errors = board.getErrors();
-
-                if (errors.isEmpty())
-                {
-                    JOptionPane.showMessageDialog(frame, "You got it!",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
+                    complete = false;
                 } else
                 {
-                    for (SudokuError error : errors)
+                    try
                     {
-                        text[error.row()][error.col()].setBackground(new Color(255, 204, 204));
+                        arr[i][j] = Integer.parseInt(field);
+                    } catch (NumberFormatException e)
+                    {
+                        return;
                     }
                 }
             }
-        });
+        }
 
+        if (complete)
+        {
+            checkErrors();
+        }
+    }
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.add(check, BorderLayout.SOUTH);
-        frame.setVisible(true);
+    public void checkErrors()
+    {
+        List<SudokuError> errors = sudoku.getErrors();
 
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                text[i][j].setBackground(Color.WHITE);
+            }
+        }
+
+        for (SudokuError error : errors)
+        {
+            text[error.row()][error.col()].setBackground(new Color(255, 204, 204));
+        }
     }
 
     public static void main(String[] args)
