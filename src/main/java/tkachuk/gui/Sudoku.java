@@ -1,19 +1,28 @@
 package tkachuk.gui;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class Sudoku
 {
-
     private int[][] arr;
 
     public Sudoku(int[][] arr)
     {
         this.arr = arr;
     }
+
+    public void setArr(int[][] arr)
+    {
+        this.arr = arr;
+    }
+
+    public int[][] getArr()
+    {
+        return arr;
+    }
+
 
     public List<SudokuError> getErrors()
     {
@@ -81,7 +90,6 @@ public class Sudoku
             {
                 countRow = 0;
             }
-
         }
         System.out.println(errors.toString());
         return errors;
